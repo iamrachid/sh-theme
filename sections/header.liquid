@@ -1,7 +1,229 @@
+{% if section.settings.header_style == 'style_1' %}
+
+{% include 'header_1' %}
+
+{% elsif section.settings.header_style == 'style_2' %}
+
+{% include 'header_2' %}
+
+{% endif %}
+
+
+
+<style>
+  .theme-logo img{
+    max-width: {{ section.settings.logo_width }}px;
+  }
+</style>
+
 {% schema %}
   {
-    "name": "Section name",
-    "settings": []
+    "name": "Header",
+    "settings": [
+     	 {
+        "type": "radio",
+        "id": "header_style",
+        "label": "Header Style",
+        "options": [
+          {
+           "label": "Style 1",
+           "value": "style_1"
+          },
+          {
+           "label": "Style 2",
+           "value": "style_2"
+          }
+          ],
+           "default": "style_1"
+        },
+		{
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+		{
+          "type": "image_picker",
+          "id": "logo_2",
+          "label": "Logo (Other Page)"
+        },
+		{
+          "type": "range",
+          "id": "logo_width",
+          "label": "Custom logo width",
+          "min": 50,
+          "max": 300,
+          "step": 5,
+          "unit": "px",
+          "default": 150
+        },
+		{
+          "type": "checkbox",
+          "id": "ratina_logo_enable",
+          "label": "Retina Logo Enable",
+		  "default": false
+        },
+		{
+          "type": "checkbox",
+          "id": "google_translate_enable",
+          "label": "Google Translate Enable",
+		  "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "header_soical_enable",
+          "label": "Enable Header Social",
+          "default": true
+        },
+				{
+					"type": "header",
+					"content": "Social 1"
+				},
+				{
+					"type": "text",
+					"id": "social1",
+					"label": "Title",
+					"default": "facebook",        
+					"info": "[See Icon Name](http:\/\/ionicons.com\/v2\/cheatsheet.html)"
+				},
+				{
+					"type": "url",
+					"id": "social1_url",
+					"label": "URL"
+				},
+				{
+					"type": "header",
+					"content": "Social 2"
+				},
+				{
+					"type": "text",
+					"id": "social2",
+					"label": "Title",
+					"default": "twitter",					
+					"info": "[See Icon Name](http:\/\/ionicons.com\/v2\/cheatsheet.html)"
+				},
+				{
+					"type": "url",
+					"id": "social2_url",
+					"label": "URL"
+				},
+				{
+					"type": "header",
+					"content": "Social 3"
+				},
+				{
+					"type": "text",
+					"id": "social3",
+					"label": "Title",
+					"default": "googleplus-outline",
+					"info": "[See Icon Name](http:\/\/ionicons.com\/v2\/cheatsheet.html)"
+				},
+				{
+					"type": "url",
+					"id": "social3_url",
+					"label": "URL"
+				},
+				{
+					"type": "header",
+					"content": "Social 4"
+				},
+				{
+					"type": "text",
+					"id": "social4",
+					"label": "Title",
+					"default": "instagram-outline",
+					"info": "[See Icon Name](http:\/\/ionicons.com\/v2\/cheatsheet.html)"
+				},
+				{
+					"type": "url",
+					"id": "social4_url",
+					"label": "URL"
+				},
+				{
+					"type": "header",
+					"content": "Social 5"
+				},
+				{
+					"type": "text",
+					"id": "social5",
+					"label": "Title",
+					"default": "youtube",
+					"info": "[See Icon Name](http:\/\/ionicons.com\/v2\/cheatsheet.html)"
+				},
+				{
+					"type": "url",
+					"id": "social5_url",
+					"label": "URL"
+				},
+        {
+          "type": "checkbox",
+          "id": "header_account_enable",
+          "label": "Enable Header Account",
+          "default": true
+        },        {
+          "type": "checkbox",
+          "id": "header_search_enable",
+          "label": "Enable Header Search",
+          "default": true
+        },
+		{
+          "type": "checkbox",
+          "id": "header_support_num_enable",
+          "label": "Enable Header Support Number",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Support Icon Image"
+        },
+        {
+        "type": "image_picker",
+        "id": "support_icon",
+        "label": "Image",
+        "info": "Recommended Size: 40 x 35px"
+        },
+        {
+        "type": "html",
+        "id": "support_number",
+        "label": "HTML Content",
+        "default": "<span>Customer Support</span><p>(08) 12 345 789</p>"
+        },
+
+		{
+          "type": "header",
+          "content": "Mini Cart"
+        },
+		{
+          "type": "text",
+          "id": "cart_item_title",
+          "label": "Item Title",
+		  "default": "Item"
+        },
+		{
+          "type": "text",
+          "id": "cart_items_title",
+          "label": "Items Title",
+		  "default": "Items"
+        },
+
+		{
+          "type": "text",
+          "id": "quantity_title",
+          "label": "Quantity Title",
+		  "default": "Qty: "
+        },
+		{
+          "type": "text",
+          "id": "view_cart_title",
+          "label": "View Cart Title",
+		  "default": "View Cart"
+        },
+		{
+          "type": "text",
+          "id": "checkout_title",
+          "label": "Checkout Title",
+		  "default": "Checkout"
+        }
+	]
   }
 {% endschema %}
 
