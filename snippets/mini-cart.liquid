@@ -1,0 +1,57 @@
+{% assign itemStyle = '' %}{% if cart.item_count == 0 %}{% assign itemStyle = ' style="display:none;"' %}{% endif %}
+{% assign itemEmpty = '' %}{% if cart.item_count == 0 %}{% assign itemEmpty = ' style="display:block;"' %}{% endif %}
+
+
+<div class="small-cart deactive-dropdown-menu">
+   
+  <div class="cart-empty-title" {{ itemEmpty }}>
+    <h3>{{ 'cart.general.empty' | t }}</h3>
+  </div>
+    
+  <div class="small-cart-item-wrapper single-product-cart single-cart-item-loop" {{ itemStyle  }}>  
+    
+    {% for item in cart.items %}
+    
+    <div class="single-item">
+      <div class="image">
+        <a href="{{ item.url }}"><img src="{{ item | img_url: 'small' }}" alt=""></a>
+      </div>
+      <div class="content">
+        <p class="cart-name"><a href="{{ item.url }}">{{ item.title }}</a></p>
+        <p class="cart-quantity"><span class="quantity-mes">{{ item.quantity }} x </span> {{ item.price | money }}</p>      
+      </div>      
+      <a class="remove-icon" href="javascript:void(0);" onclick="Shopify.removeItem({{ item.variant.id }})"><i class="ion-close-round"></i></a>            
+    </div>
+    
+    {% endfor %}
+    
+  </div>
+
+  <div class="cart-calculation-table single-product-cart" {{ itemStyle  }}>
+    <table class="table mb-25">
+      
+      <tbody>
+        
+        <tr>
+          <td class="text-left">Sub Total :</td>
+          <td class="text-right shopping-cart__total">{{ cart.total_price | money }}</td>
+        </tr>
+        
+        <tr>
+          <td class="text-left">{{ 'cart.label.total' | t }} :</td>
+          <td class="text-right shopping-cart__total">{{ cart.total_price | money }}</td>
+        </tr>
+        
+      </tbody>
+      
+    </table>
+
+    <div class="cart-buttons">
+      <a href="/cart" class="theme-button">{{ section.settings.view_cart_title }}</a>      
+      <a class="theme-button" href="/checkout">{{ section.settings.checkout_title }}</a>
+      
+    </div>
+    
+  </div>
+
+</div>

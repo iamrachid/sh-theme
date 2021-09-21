@@ -1,0 +1,154 @@
+<!-- PRODUCT SECTION START -->
+{% assign related_product_limit_count = section.settings.related_product_limit_handle %}
+{% assign related_product_limit = related_product_limit_count | plus: 1 %}
+
+{% if collection == null or collection.handle == 'frontpage' or collection.handle == 'all' %}
+{% assign product_found = false %}
+
+{% for c in product.collections %}
+{% if product_found == false and c.handle != 'frontpage' and c.handle != 'all' and c.all_products_count > 1 %}
+{% assign product_found = true %}
+{% assign collection = c %}
+{% endif %}
+{% endfor %}
+
+{% endif %}
+
+
+{% if collection and collection.products_count > 1 and section.settings.related_products_enable %}
+<div class="product-single-row-slider-area mb-40">
+  <div class="container">
+    
+  {% if section.settings.section_title != '' %}
+    <div class="row">
+      <div class="col-lg-12">
+        <!--=======  section title  =======-->
+
+        <div class="section-title mb-20">
+          <h2>{{ section.settings.section_title }}</h2>
+        </div>
+
+        <!--=======  End of section title  =======-->
+      </div>
+    </div>
+  {% endif %}
+    
+    <div class="row">
+      <div class="col-lg-12">
+        <!--=======  product single row slider wrapper  =======-->
+
+        <div class="product-single-row-slider-wrapper">
+          <div class="ht-slick-slider"
+               data-slick-setting='{
+                                   "slidesToShow": 4,
+                                   "slidesToScroll": 1,
+                                   "dots": false,
+                                   "autoplay": false,
+                                   "autoplaySpeed": 5000,
+                                   "speed": 1000,
+                                   "arrows": true,
+                                   "infinite": false,
+                                   "prevArrow": {"buttonClass": "slick-prev", "iconClass": "ion-ios-arrow-left" },
+                                   "nextArrow": {"buttonClass": "slick-next", "iconClass": "ion-ios-arrow-right" }
+                                   }'
+               data-slick-responsive='[
+                                      {"breakpoint":1501, "settings": {"slidesToShow": 4} },
+                                      {"breakpoint":1199, "settings": {"slidesToShow": 4} },
+                                      {"breakpoint":991, "settings": {"slidesToShow": 3} },
+                                      {"breakpoint":767, "settings": {"slidesToShow": 2, "arrows": false} },
+                                      {"breakpoint":575, "settings": {"slidesToShow": 2, "arrows": false} },
+                                      {"breakpoint":479, "settings": {"slidesToShow": 1, "arrows": false} }
+                                      ]'
+               >
+
+            {% assign current_product = product %}
+            {% assign current_product_count = false %}
+            {% for product in collection.products limit: related_product_limit %}
+            {% if product.handle == current_product.handle %}
+            {% assign current_product_count = false %}
+            {% else %}
+            {% unless current_product_count == true and forloop.last %}
+            {% include 'product-grid-item' %}
+            {% endunless %}
+            {% endif %}     
+            {% endfor %}
+
+          </div>
+        </div>
+
+        <!--=======  End of product single row slider wrapper  =======-->
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Related Product",
+    "settings": [
+		{
+            "type": "checkbox",
+            "id": "related_products_enable",
+            "label": "Show Related Product",
+            "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Section Title Here"
+      	},
+		{
+            "type": "header",
+            "content": "Product Options"
+        },
+		{
+          "type": "select",
+          "id": "product_column",
+          "label": "Produc Column",
+		  "options":[
+				{
+					"label": "2 Products",
+					"value": "6"
+				},
+				{
+					"label": "3 Products",
+					"value": "4"
+				},
+				{
+					"label": "4 Products",
+					"value": "3"
+				}
+			],
+			"default": "4"
+      	},
+		{
+            "type": "range",
+            "id": "related_product_limit_handle",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "label": "Product Limit",
+            "default": 20
+        }
+	]
+  }
+{% endschema %}
+
+
+
+

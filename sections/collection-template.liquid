@@ -1,0 +1,443 @@
+{% comment %}
+<!-- Start Shop Page -->
+<div class="product-collection">
+  <div class="container">
+    <div class="row {% if section.settings.sidebar_handle == 'left_sidebar_handle' %}flex-row-reverse{% endif %}">     
+      <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9{% endif %} col-12">
+        
+        {%- if cart.attributes.pagination != blank -%}
+        {%- assign products_limit = cart.attributes.pagination -%}
+        {%- else -%}
+        {%- assign products_limit = section.settings.products_limit_handle -%}
+        {%- endif -%}
+        {%- paginate collection.products by products_limit -%}        
+        
+        {%- if section.settings.tab_bar_enable or section.settings.short_by_enable or section.settings.showing_product_counter_enable -%}
+        <div class="row">
+          <div class="col-lg-12">
+            {%- include 'collection-sorting' -%}
+          </div>
+        </div>
+        {%- endif -%}
+        
+        <div class="shop-grid">
+          <div class="product-grid-view">
+            <div class="row">
+              {%- for product in collection.products -%}
+              <div class="col-lg-{{ section.settings.product_column }} col-md-{{ section.settings.product_column_md }} col-{{ section.settings.product_column_xs }}">
+                {%- include 'product-grid-item' -%}
+              </div>
+              {%- endfor -%}
+            </div>
+            {%- include 'pagination' -%}
+          </div>          
+        </div>
+
+        {%- endpaginate -%}
+      </div>
+      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}
+      <div class="col-lg-3 col-12">
+        {%- include 'collection-sidebar' -%}
+      </div>
+      {%- endunless -%}
+    </div>
+  </div>
+</div>
+<!-- End Shop Page -->
+{% endcomment %}
+
+
+
+
+
+<div class="page-section pb-40">
+  <div class="container">
+    <div class="row {% if section.settings.sidebar_handle == 'left_sidebar_handle' %}flex-row-reverse{% endif %}"> 
+
+      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}
+      <div class="col-lg-3 order-2 order-lg-1">
+        {%- include 'collection-sidebar' -%}
+      </div>
+      {%- endunless -%}
+
+
+      <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9{% endif %} col-12">
+
+        {%- if cart.attributes.pagination != blank -%}
+        {%- assign products_limit = cart.attributes.pagination -%}
+        {%- else -%}
+        {%- assign products_limit = section.settings.products_limit_handle -%}
+        {%- endif -%}
+        {%- paginate collection.products by products_limit -%} 
+
+        {% if section.settings.info_content_enable %}
+        <!--=======  shop banner  =======-->
+        <div class="shop-banner mb-30">
+
+          <a href="{{ section.settings.banner_img_url }}"><img class="img-fluid" src="{% if section.settings.full_banner_img %} {{ section.settings.full_banner_img | img_url: 'master' }}
+            {% else %} https://via.placeholder.com/825x220 {% endif %}" alt="">
+          </a>
+
+        </div>
+        <!--=======  End of shop banner  =======-->
+        {% endif %}                
+
+        {%- if section.settings.tab_bar_enable or section.settings.short_by_enable or section.settings.showing_product_counter_enable -%}
+        {%- include 'collection-sorting' -%}
+        {%- endif -%}
+
+
+        <!--=======  shop page content  =======-->
+
+        <div class="row shop-product-wrap grid three-column mb-10">
+
+          {%- for product in collection.products -%}          
+          <div class="col-12 col-lg-4 col-md-6 col-sm-6 mb-20">
+            <!--=======  grid view product  =======-->
+
+            {%- include 'product-grid-item-2' -%}
+
+
+            <!--=======  End of grid view product  =======-->
+
+          </div>
+
+          {%- endfor -%}
+
+
+        </div>
+
+        <!--=======  End of shop page content  =======-->
+
+        <!--=======  pagination  =======-->
+        {%- include 'pagination' -%}
+        <!--=====  End of pagination  ====-->
+        {%- endpaginate -%}
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+{% schema %}
+  {
+  	"name": "Collection Template",
+  	"settings": [
+		  {
+              "type": "checkbox",
+              "id": "show_ajax_paginate",
+              "label": "Show Ajax Counter",
+              "default": true
+          },
+		  {
+              "type": "text",
+              "id": "ajax_show_title_handle",
+              "label": "Title",
+              "default": "Show: "
+          },
+
+
+
+
+
+
+          {
+              "type": "header",
+              "content": "Shop Banner"
+          },
+
+          {
+            "type": "checkbox",
+            "id": "info_content_enable",
+            "label": "Show Banner",
+            "default": true
+          },
+          {
+            "type": "image_picker",
+            "id": "full_banner_img",
+            "label": "Shop Banner Image",
+            "info": "Recommended Size: 825px x 220px"
+          },
+          {
+            "type": "url",
+            "id": "banner_img_url",
+            "label": "Banner URL"
+          },
+          {
+              "type": "header",
+              "content": "Product"
+          },	
+		  {
+            "type": "range",
+            "id": "products_limit_handle",
+            "min": 6,
+            "max": 100,
+            "step": 1,
+            "label": "Limit",
+            "default": 12,
+			"info": "How many products are displayed on each page"
+          },
+          {
+              "type": "header",
+              "content": "Collection Sorting"
+          },
+		  {
+              "type": "checkbox",
+              "id": "tab_bar_enable",
+              "label": "Show Grid/List View",
+              "default": true
+          },
+		  {
+              "type": "checkbox",
+              "id": "showing_product_counter_enable",
+              "label": "Showing Product Counter",
+              "default": true
+          },
+		  {
+              "type": "text",
+              "id": "showing_title_handle",
+              "label": "Showing Title",
+              "default": "Showing | of | result"
+          },
+
+          {
+              "type": "checkbox",
+              "id": "short_by_enable",
+              "label": "Show Short By",
+              "default": true
+          },
+          {
+              "type": "header",
+              "content": "Collection Sidebar"
+          },
+          {
+              "type": "radio",
+              "id": "sidebar_handle",
+              "label": "Sidebar Position -",
+              "options": [
+                  {
+                      "label": "Left Sidebar",
+                      "value": "left_sidebar_handle"
+                  },
+                  {
+                      "label": "Right Sidebar",
+                      "value": "right_sidebar_handle"
+                  },
+                  {
+                      "label": "Without Sidebar",
+                      "value": "without_sidebar"
+                  }
+              ],
+              "default": "left_sidebar_handle"
+          }
+      ],
+	  "blocks":[
+		{
+          "type": "search",
+          "name": "Search",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Search"
+            }
+          ]
+       },
+	   {
+          "type": "category",
+          "name": "Category",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Categories"
+            },
+            {
+              "type": "range",
+              "id": "categories_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Category Limit",
+              "default": 5
+            }
+          ]
+       },
+	   {
+          "type": "vendor",
+          "name": "Vendor",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Vendors"
+            },
+            {
+              "type": "range",
+              "id": "vendors_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Verdor Limit",
+              "default": 5
+            }
+          ]
+       },
+	   {
+          "type": "type",
+          "name": "Type",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Products Types"
+            },
+            {
+              "type": "range",
+              "id": "types_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Type Limit",
+              "default": 5
+            }
+          ]
+       },
+	   {
+          "type": "color",
+          "name": "Color",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Color"
+            },
+            {
+              "type": "textarea",
+              "id": "color_picker",
+              "label": "Put your color name",
+              "default": "red, green, blue, yellow, white, gold, gray, magenta, maroon, navy, purple, violet, black, pink, orange, silver",
+              "info": "Ex: red, green, blue [More Color Name](https:\/\/www.w3schools.com\/colors\/colors_names.asp)"
+            },
+            {
+              "type": "range",
+              "id": "colors_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Color Limit",
+              "default": 10
+            }
+          ]
+       },
+	   {
+          "type": "size",
+          "name": "Size",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Size"
+            },
+            {
+              "type": "textarea",
+              "id": "size_picker",
+              "label": "Put your size name",
+              "default": "s, m, l, xl, xxl",
+              "info": "Ex: s, m, l, xl, xxl"
+            },
+            {
+              "type": "range",
+              "id": "size_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Size Limit",
+              "default": 5
+            }
+          ]
+       },
+	   {
+          "type": "tag",
+          "name": "Tag",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Tags"
+            },
+            {
+              "type": "range",
+              "id": "tags_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Size Limit",
+              "default": 15
+            }
+          ]
+       },
+	   {
+          "type": "menu",
+          "name": "Menu",
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Custom Menu"
+            },
+			{
+              "type": "link_list",
+              "id": "menu_handle",
+              "label": "Menu",
+              "info": "Dropdown menu applicable"
+            }
+          ]
+       },
+	   {
+          "type": "banner",
+          "name": "Banner",
+          "settings": [
+            {
+              "type": "text",
+              "id": "widget_title",
+              "label": "Title",
+              "default": "Banner"
+            },
+            {
+              "type": "image_picker",
+              "id": "banner_image",
+              "label": "Image"
+            },
+			{
+              "type": "url",
+              "id": "banner_image_url",
+              "label": "URL"
+            }
+          ]
+       }
+	]
+  }
+{% endschema %}

@@ -1,0 +1,16 @@
+{% if customer %}
+<a class="action-wishlist tile-actions--btn flex wishlist-btn wishlist" href="#" data-product-handle="{{ product.handle }}">
+  <span class="add-wishlist"><i class="icon-heart"></i>{{ settings.add_wishlit_title }}</span>
+  <span class="loading-wishlist"><i class="icon-heart"></i>{{ settings.loading_wishlist }}</span>
+  <span class="remove-wishlist"><i class="icon-heart"></i>{{ settings.remove_wishlit_title }}</span>
+</a>
+{% else %}
+<a class="wishlist" href="/account/login" title="Wishlist">
+<i class="icon-heart"></i>{{ settings.add_wishlit_title }}
+</a>
+{% endif %}
+
+<a class="go-to-wishlist" href="/pages/wishlist">
+  <i class="fa fa-reply" aria-hidden="true"></i>
+  {{ settings.go_to_wishlit_title }}
+</a>

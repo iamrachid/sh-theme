@@ -1,0 +1,346 @@
+<!--====================  product widget slider area ====================-->
+<div class="product-widget-slider-area mb-40" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+
+      {% for block in section.blocks %}
+      {%- case block.type -%}
+      {%- when 'single_feature' -%}
+      
+      {% assign featured_product = collections[block.settings.featured_product_handle] %}
+      {% assign featured_product_limit = block.settings.featured_product_limit_handle %}
+
+      <div class="col-lg-{{ block.settings.feature_column }} mb-md-30 mb-sm-30">
+        
+        {% if block.settings.section_title != '' %}
+        <!--=======  section title  =======-->
+        <div class="section-title section-title--medium mb-20">
+          <h2>{{ block.settings.section_title }}</h2>
+        </div>
+        <!--=======  End of section title  =======-->
+        {%- endif -%}
+        
+        <!--=======  single widget product slider  =======-->
+        <div class="single-widget-slider">
+          <div class="ht-slick-slider"
+               data-slick-setting='{
+                                   "slidesToShow": 1,
+                                   "slidesToScroll": 1,
+                                   "dots": false,
+                                   "autoplay": false,
+                                   "autoplaySpeed": 5000,
+                                   "speed": 1000,
+                                   "rows": 3
+                                   }'
+               data-slick-responsive='[
+                                      {"breakpoint":1501, "settings": {"slidesToShow": 1} },
+                                      {"breakpoint":1199, "settings": {"slidesToShow": 1} },
+                                      {"breakpoint":991, "settings": {"slidesToShow": 2} },
+                                      {"breakpoint":767, "settings": {"slidesToShow": 1} },
+                                      {"breakpoint":575, "settings": {"slidesToShow": 1} },
+                                      {"breakpoint":479, "settings": {"slidesToShow": 1} }
+                                      ]'
+               >
+            <!--=======  single  widget product  =======-->
+
+            {% for product in featured_product.products limit: featured_product_limit %}
+            {% include 'product-grid-small-item' %}
+            {% endfor %}
+            
+            <!--=======  End of single  widget product  =======-->
+          </div>
+        </div>
+        <!--=======  End of single widget product slider  =======-->
+
+      </div>
+
+      {%- endcase -%}
+      {% endfor %}
+    </div>
+  </div>
+</div>        
+<!--====================  End of product widget slider area  ====================-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{%- include 'section-style' -%}
+
+
+
+{% schema %}
+  {
+    "name": "Feature More Best Area",
+    "settings": [
+
+    ],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       },
+
+	   {
+          "type": "single_feature",
+          "name": "Single Feature",
+          "settings": [
+                {
+                  "type": "header",
+                  "content": "Section Heading"
+                },
+                {
+                  "type": "text",
+                  "id": "section_title",
+                  "label": "Section Title",
+                  "default": "Featured Products"
+                },
+                {
+                    "type": "collection",
+                    "id": "featured_product_handle",
+                    "label": "Select Collection"
+                },
+                {
+                    "type": "range",
+                    "id": "featured_product_limit_handle",
+                    "min": 2,
+                    "max": 50,
+                    "step": 1,
+                    "label": "Limit",
+                    "default": 12
+                },
+                {
+                  "type": "select",
+                  "id": "feature_column",
+                  "label": "Feature Column",
+                  "options":[
+                        {
+                            "label": "2",
+                            "value": "2"
+                        },
+                        {
+                            "label": "3",
+                            "value": "3"
+                        },
+                        {
+                            "label": "4",
+                            "value": "4"
+                        },
+                        {
+                            "label": "5",
+                            "value": "5"
+                        }
+                    ],
+                    "default": "4"
+                }
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Feature More Best Area",
+		  "category": "3. collections",
+		  "blocks":[
+				{
+					"type": "single_feature"
+				},
+				{
+					"type": "single_feature"
+				},
+				{
+					"type": "single_feature"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

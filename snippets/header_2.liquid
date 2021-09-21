@@ -1,0 +1,161 @@
+<div class="page-wrapper-blue header_style_2">
+  <div class="header-area header-sticky">
+    <!--====================  Navigation top ====================-->
+
+    <div class="navigation-top">
+      <div class="container">
+        <div class="row header_top_custom">
+          <div class="col-lg-12">
+            <!--====================  navigation section ====================-->
+            <div class="navigation-top-topbar pt-10 pb-10"> 
+              <div class="row align-items-center">
+                <div class="col-lg-4 col-md-6 text-center text-md-left">
+                  <!--=======  header top social links  =======-->
+
+                  {%- if section.settings.header_soical_enable -%}
+                  <div class="header-top-social-links">
+                    <span class="follow-text mr-15">Follow Us:</span>
+                    <!--=======  social link small  =======-->
+
+                      <ul class="social-link-small">
+                        {% if section.settings.social1 != '' %}
+                        <li><a href="{{ section.settings.social1_url }}"><i class="ion-social-{{ section.settings.social1 }}"></i></a></li>
+                        {% endif %}
+
+                        {% if section.settings.social2 != '' %}
+                        <li><a href="{{ section.settings.social2_url }}"><i class="ion-social-{{ section.settings.social2 }}"></i></a></li>
+                        {% endif %}
+
+                        {% if section.settings.social3 != '' %}
+                        <li><a href="{{ section.settings.social3_url }}"><i class="ion-social-{{ section.settings.social3 }}"></i></a></li>
+                        {% endif %}
+
+                        {% if section.settings.social4 != '' %}
+                        <li><a href="{{ section.settings.social4_url }}"><i class="ion-social-{{ section.settings.social4 }}"></i></a></li>
+                        {% endif %}
+
+                        {% if section.settings.social5 != '' %}
+                        <li><a href="{{ section.settings.social5_url }}"><i class="ion-social-{{ section.settings.social5 }}"></i></a></li>
+                        {% endif %}
+                      </ul>
+
+
+                    <!--=======  End of social link small  =======-->
+                  </div>
+                  {%- endif -%}
+
+                  <!--=======  End of header top social links  =======-->
+                </div>
+                <div class="col-lg-4 offset-lg-4 col-md-6">
+                  <!--=======  header top dropdown container  =======-->
+
+                  <div class="headertop-dropdown-container justify-content-center justify-content-md-end">
+
+                    {%- if section.settings.header_account_enable -%}
+                    <div class="header-top-single-dropdown">
+                      <a href="javascript:void(0)" class="active-dropdown-trigger" id="user-options">My Account <i class="ion-ios-arrow-down"></i></a>
+                      <!--=======  dropdown menu items  =======-->
+
+                      <div class="header-top-single-dropdown__dropdown-menu-items deactive-dropdown-menu extra-small-mobile-fix">
+                        <ul>
+                          {%- if shop.customer_accounts_enabled and customer -%}
+                          <li>{{ 'layout.customer.log_out' | t | customer_logout_link }}</li>
+                          {%- else -%}
+                          <li>{{ 'layout.customer.log_in' | t | customer_login_link }}</li>   
+                          <li>{{ 'layout.customer.create_account' | t | customer_register_link }}</li>
+                          {%- endif -%}
+                        </ul>
+                      </div>
+                      <!--=======  End of dropdown menu items  =======-->
+                    </div>
+                    {%- endif -%}
+
+                    <span class="separator">|</span>
+
+
+                    {%- if settings.currency_enable -%}
+
+                    {%- include 'currency-picker' -%}
+
+                    {%- endif -%}
+
+                  </div>
+
+                  <!--=======  End of header top dropdown container  =======-->
+                </div>
+              </div>
+            </div>
+
+            <!--====================  End of navigation section  ====================-->
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <!--====================  navigation top search ====================-->
+
+
+            <div class="navigation-top-search-area pt-15 pb-15">
+              <div class="row align-items-center">
+                <div class="col-6 col-xl-2 col-lg-3 order-1 col-md-6 col-sm-5 mobile_common">
+                  <!--=======  logo  =======-->
+
+                  {%- include 'header-logo' -%}
+
+                  <!--=======  End of logo  =======-->
+                </div>
+
+                <div class="col-xl-8 offset-xl-1 col-lg-7 order-4 order-lg-2 mt-md-25 mt-sm-25">
+
+                  <!--====================  navigation menu ====================-->
+
+                  <div class="navigation-menu-area">
+
+                    <!-- navigation section -->
+                    <div class="main-menu d-none d-lg-block">            
+                      {%- include 'main-menu' -%}            
+                    </div>
+                    <!-- end of navigation section -->
+
+                    <!-- Mobile Menu -->
+                    <div class="mobile-menu-wrapper d-block d-lg-none pt-15">
+                      <div class="mobile-menu"></div>
+                    </div>
+                  </div>
+
+                  <!--====================  End of navigation menu  ====================-->
+
+                </div>
+
+
+                <div class="col-6 col-xl-1 col-lg-2 text-right order-2 order-sm-3 order-lg-4 order-xs-2 col-md-6 col-sm-2 mobile_common">
+                  <!--=======  cart icon  =======-->
+
+                  <div class="header-cart-icon">
+                    <a href="javascript:void(0)" id="small-cart-trigger" class="small-cart-trigger">
+                      <i class="icon-shopping-cart"></i>
+                      <span class="cart-counter bigcounter">{{ cart.item_count }}</span>
+                    </a>
+
+                    <!--=======  small cart  =======-->
+
+                    {%- include 'mini-cart' -%}                  
+
+                    <!--=======  End of small cart  =======-->
+                  </div>
+
+                  <!--=======  End of cart icon  =======-->
+                </div>
+              </div>
+            </div>
+
+            <!--====================  End of navigation top search  ====================-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--====================  End of Navigation top  ====================-->
+
+
+  </div>
+</div>

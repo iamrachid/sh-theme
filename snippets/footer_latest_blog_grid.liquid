@@ -1,0 +1,19 @@
+<!--=======  single blog post  =======-->
+<div class="slider-single-post">
+
+  {% if article.image %}
+  <div class="slider-single-post__image">
+    <a class="article__featured-image" href="{{ article.url }}">
+      {{ article | img_url: '550x550', crop:'center' | img_tag: article.title }}
+    </a>
+  </div>
+  {% endif %}
+
+  <div class="slider-single-post__content">
+    <h3 class="post-title"><a href="{{ article.url }}">{{ article.title }}</a></h3>
+    <div class="post-meta">  
+      <p class="post-date">{{ article.published_at | date: '%d %b, %y' }}</p>
+    </div>
+  </div>
+</div>
+<!--=======  End of single blog post  =======-->

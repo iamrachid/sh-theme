@@ -1,0 +1,263 @@
+<div class="page-section pb-40">
+  <div class="container">
+    
+     <div class="row {% if section.settings.sidebar_handle == 'right_sidebar_handle' %}flex-row-reverse{% endif %}">
+
+      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}
+      <div class="col-lg-3 order-2 order-lg-1">
+        {% include 'blog-sidebar' %}
+      </div>
+      {%- endunless -%}
+
+     <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9 order-1 order-lg-2{% endif %}">
+
+        <!--=======  blog post container  =======-->
+
+        <div class="blog-single-post-container mb-30">
+
+          <!--=======  post title  =======-->
+
+
+          <h3 class="post-title">{{ article.title }}</h3>
+
+          <!--=======  End of post title  =======-->
+
+
+          <!--=======  Post meta  =======-->
+          <div class="post-meta">
+            <p><span><i class="fa fa-user-circle"></i> Posted By: </span> {{ article.author }} <span class="separator">|</span> <span><i class="fa fa-calendar"></i> Posted On: {{ article.published_at | date: '%d %b, %y' }}</span></p>
+          </div>
+          <!--=======  End of Post meta  =======-->
+
+          <!--=======  Post media  =======-->
+
+          <div class="single-blog-post-media mb-xs-20">
+            <div class="image">
+              <img class="img-fluid" src="{{ article | img_url: '1170x717', crop:'center' }}" alt="{{ article.image.alt }}">
+            </div>
+          </div>
+
+          <!--=======  End of Post media  =======-->
+
+          <!--=======  Post content  =======-->
+
+          <div class="post-content mb-40">
+            {{ article.content }}
+          </div>
+
+          <!--=======  End of Post content  =======-->
+
+          <!--=======  Tags area  =======-->
+          {% if article.tags.size > 0 %}
+          <div class="tag-area mb-40">
+            <ul>
+              {% include 'tags-article' %}
+            </ul>
+          </div>
+          {% endif %}
+
+          <!--=======  End of Tags area  =======-->
+
+          <!--=======  Share post area  =======-->
+          <div class="social-share-buttons mb-40">
+            <h3>share this post</h3>
+            {% include 'blog-share' %}
+          </div>
+          <!--=====  End of Share post area  ======-->
+
+        </div>
+
+        <!--=======  End of blog post container  =======-->
+
+        <!--=============================================
+=            Comment section         =
+=============================================-->
+       
+
+        <div class="comment-section mb-md-30 mb-sm-30">
+          <!--=======  comment container  =======-->
+
+          {%- if article.comments_enabled? -%}
+          {%- assign comment_post_limit = section.settings.comment_post_limit_handle -%}
+          {%- paginate article.comments by comment_post_limit -%}
+          <div id="comments" class="comment-success">
+            {%- if comment and comment.created_at -%}
+            <p class="note form-success">
+              {%- if blog.comments_modareted? -%}
+              {{ 'blogs.comments.success_moderated' | t }}            
+              {%- else -%}
+              {{ 'blogs.comments.success' | t }}
+              {%- endif -%}
+            </p>
+            {%- endif -%}
+
+            {%- if article.comments.size > 0 -%}
+            {%- include 'blog-comments' -%}
+            {%- endif -%}
+            {%- if paginate.pages > 1 -%}
+            <div class="comment-pagination">
+              {% include 'pagination' %}
+            </div>
+            {%- endif -%}
+            {%- endpaginate -%}
+            {%- include 'blog-comment-form' -%}
+          </div>
+          {%- endif -%}
+          
+
+          <!--=======  End of comment container  =======-->
+
+        </div>
+
+
+        <!--=====  End of Comment section  ======-->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Article Page",
+    "settings": [
+		{
+			"type": "header",
+			"content": "Comment Box"
+		},
+		{
+			"type": "image_picker",
+			"id": "commentator_image",
+			"label": "Comment Thumb Image",
+			"info": "Recommended Size: 80 x 80px"
+		},
+		{
+            "type": "range",
+            "id": "comment_post_limit_handle",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "label": "How Many Comment Post Show",
+            "default": 5
+        },
+		{
+			"type": "header",
+			"content": "Article Sidebar"
+		},
+		{
+			"type": "radio",
+			"id": "sidebar_handle",
+			"label": "Sidebar Position -",
+			"options": [
+				{
+					"label": "Left Sidebar",
+					"value": "left_sidebar_handle"
+				},
+				{
+					"label": "Right Sidebar",
+					"value": "right_sidebar_handle"
+				},
+				{
+					"label": "Without Sidebar",
+					"value": "without_sidebar"
+				}
+			],
+			"default": "left_sidebar_handle"
+		}
+	],
+	 "blocks":[
+		{
+          "type": "search",
+          "name": "Search",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Search"
+            }
+          ]
+       },
+	   {
+          "type": "recent_post",
+          "name": "Recent Post",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "recent_post_title",
+              "label": "Recent Post Title",
+              "default": "Recent Post"
+			},
+            {
+              "type": "range",
+              "id": "recent_post_limit_handle",
+              "min": 2,
+              "max": 10,
+              "step": 1,
+              "label": "Post Limit",
+              "default": 3
+            }
+          ]
+       },
+	   {
+          "type": "archive",
+          "name": "Archive",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "archive_title",
+              "label": "Archive Title",
+              "default": "Archive"
+            }
+          ]
+       },
+	   {
+          "type": "tag",
+          "name": "Tag",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "blog_tags_title",
+              "label": "Tags Title",
+              "default": "Tags"
+			},
+            {
+              "type": "range",
+              "id": "blog_tags_list_limit_handle",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Tag Limit",
+              "default": 10
+            }
+          ]
+       },
+	   {
+          "type": "menu",
+          "name": "Menu",
+          "settings": [
+            {
+              "type": "text",
+              "id": "menu_title",
+              "label": "Menu Title",
+              "default": "Custom Menu"
+            },
+			{
+              "type": "link_list",
+              "id": "menu_handle",
+              "label": "Menu"
+            }
+          ]
+       }
+	]
+  }
+{% endschema %}

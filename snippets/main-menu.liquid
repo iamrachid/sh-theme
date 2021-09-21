@@ -1,0 +1,67 @@
+<nav>
+  <ul>
+
+    {% for link in linklists.main-menu.links %}
+    {% assign child_list_handle = link.title | handleize %}
+    {% if linklists[child_list_handle].links != '' %}
+
+    <li class="menu-item-has-children"><a href="{{ link.url }}">{{ link.title }}</a>
+
+      <ul class="common-class">
+
+        {% for childlink in linklists[child_list_handle].links %}
+        {% assign grand_childlink_handle = childlink.title | handle %}
+
+        {% if linklists[child_list_handle] and linklists[grand_childlink_handle].links.size > 0 and linklists[child_list_handle].links.size == 5 or linklists[child_list_handle].links.size == 4 %}
+        <li class="mega-menu-add-class">
+          <a href="{{ childlink.url }}" class="mega-title">{{childlink.title}}</a>
+          <ul>                       
+            {% for grand_childlink_handle in linklists[grand_childlink_handle].links %}  
+            <li><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+            {% endfor %} 
+          </ul>
+        </li>
+        
+        
+        {% elsif childlink.type == "collection_link" and childlink.object.image %}
+        <li class="megamenu-banner d-none d-lg-block mt-30 w-100">
+          <a class="mb-0" href="{{ childlink.url }}">
+            <img src="{{ childlink.object.image | img_url: 'master' }}" alt="Mega menu Banner" class="img-fluid">
+          </a>
+        </li>        
+
+        {% elsif linklists[grand_childlink_handle] and linklists[grand_childlink_handle].links.size > 0 %}
+        <li class="sub-drop-add-class menu-item-has-children">
+          <a href="{{ childlink.url }}">{{childlink.title}}</a>
+          <ul class="sub-menu">                      
+            {% for grand_childlink_handle in linklists[grand_childlink_handle].links %}  
+            <li><a href="{{ grand_childlink_handle.url }}">{{ grand_childlink_handle.title }}</a></li>
+            {% endfor %} 
+          </ul>
+        </li>
+
+
+        {% else %}
+        <li class="sub-drop-add-class"><a href="{{ childlink.url }}">{{childlink.title}}</a></li>
+        {% endif %}
+
+        {% endfor %}
+      </ul>
+
+    </li>
+
+    {% else %}
+    <li><a href="{{link.url}}">{{ link.title }}</a></li>
+    {% endif %}
+    {% endfor %} 
+
+  </ul>
+</nav>
+
+
+<script>
+  $('.mega-menu-add-class').parent('ul').addClass('mega-menu four-column'); 
+  $('.mega-menu-add-class').parents('.menu-item-has-children').addClass('mega_static');
+  $('.sub-drop-add-class').parents('.common-class').addClass('sub-menu');
+</script>
+

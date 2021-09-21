@@ -1,0 +1,447 @@
+{% if section.settings.contact_info_enable %}
+<div class="contact_area" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 offset-lg-1 col-md-12 mb-sm-45 order-1 order-lg-2 mb-md-45">
+        <!--=======  contact page side content  =======-->
+
+        <div class="contact-page-side-content">
+
+          {% if section.settings.section_title != '' %}
+          <h3 class="contact-page-title">{{ section.settings.section_title }}</h3>
+          {% endif %}
+                   
+          
+          {% if section.settings.single_contact_title != '' %}
+          {{ section.settings.single_contact_title }}
+          {% endif %}
+
+          {% if section.settings.section_des != '' %}
+          <p class="contact-page-message mb-30">{{ section.settings.section_des }}</p>
+          {% endif %}
+
+          <!--=======  single contact block  =======-->
+          {% for block in section.blocks %}
+          <div class="single-contact-block">
+            <h4> {% if block.settings.contact_icon != '' %} <i class="{{ block.settings.contact_icon }}"></i> {% endif %}{% if block.settings.single_contact_title != '' %} {{ block.settings.single_contact_title }} {% endif %}</h4>
+
+            {% if block.settings.contact_text != '' %}
+            <p>{{ block.settings.contact_text }}</p>
+            {% endif %}
+
+          </div>
+          {% endfor %}   
+
+          <!--=======  End of single contact block  =======-->
+        </div>
+
+        <!--=======  End of contact page side content  =======-->
+
+      </div>
+      <div class="col-lg-6 col-md-12 order-2 order-lg-1">
+        <!--=======  contact form content  =======-->
+
+        <div class="contact-form-content">
+          <h3 class="contact-page-title">Tell Us Your Message</h3>
+          
+          {% include 'contact-form' %}
+
+          <p class="form-messege pt-10 pb-10 mt-10 mb-10"></p>
+        </div>
+
+        <!--=======  End of contact form content =======-->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+{% endif %}
+
+
+{%- style -%}
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+{%- endstyle -%}
+
+
+
+{% schema %}
+  {
+    "name": "Contact Form Area",
+    "settings": [
+        {
+          "type": "checkbox",
+          "id": "contact_info_enable",
+          "label": "Contact Info Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Contact Info"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Contact Us"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_des",
+          "label": "Section Description",
+          "default": "Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram anteposuerit litterarum formas human. qui sequitur mutationem consuetudium lectorum. Mirum est notare quam"
+      	},
+        {
+          "type": "range",
+          "id": "content_column",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "label": "Content Column",
+          "unit": "/12",
+          "default": 6
+        },
+        {
+          "type": "range",
+          "id": "content_column_md",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "label": "Tablet Content Column",
+          "unit": "/12",
+          "default": 12
+        },
+		{
+		  "type": "header",
+          "content": "Contact Form"
+        },
+
+			{
+			  "type": "range",
+			  "id": "content_form_column",
+			  "min": 1,
+			  "max": 12,
+			  "step": 1,
+			  "label": "Content Column",
+			  "unit": "/12",
+			  "default": 6
+			},
+			{
+			  "type": "range",
+			  "id": "content_form_column_md",
+			  "min": 1,
+			  "max": 12,
+			  "step": 1,
+			  "label": "Tablet Content Column",
+			  "unit": "/12",
+			  "default": 12
+			},
+
+            {
+              "type": "text",
+              "id": "info_hedings",
+              "label": "Information Heading",
+              "default": "TELL US YOUR PROJECT"
+            },
+            {
+              "type": "text",
+              "id": "name_placeholder",
+              "label": "Name Placeholder",
+              "default": "Full Name"		
+            },
+            {
+              "type": "text",
+              "id": "email_placeholder",
+              "label": "Email Placeholder",
+              "default": "Email Address"		
+            },
+            {
+              "type": "text",
+              "id": "subject_placeholder",
+              "label": "Subject Placeholder",
+              "default": "Subject"		
+            },
+            {
+              "type": "text",
+              "id": "message_placeholder",
+              "label": "Message Placeholder",
+              "default": "Message"		
+            },
+            {
+              "type": "text",
+              "id": "form_button_name",
+              "label": "Button Name",
+              "default": "Send Message"		
+            }
+
+
+	],
+	"blocks":[
+		{
+          "type": "contact_single_info",
+          "name": "Contact Single Info",
+          "settings": [
+            {
+			  "type": "text",
+			  "id": "contact_icon",
+			  "label": "Contact Icon",
+			  "default": "fa fa-fax",
+		  	  "info": "[See More Icon](https:\/\/fontawesome.com\/v4.7.0\/icons)"
+			},
+            {
+			  "type": "text",
+			  "id": "single_contact_title",
+			  "label": "Contact Heading",
+			  "default": "Address"
+			},
+            {
+			  "type": "text",
+			  "id": "contact_text",
+			  "label": "Contact Text",
+			  "default": "123 Main Street, Anytown, CA 12345 – USA"
+			}
+          ]
+       },
+
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Contact Form Area",
+		  "category": "others",
+		  "blocks":[
+				{
+					"type": "contact_single_info"
+				},
+				{
+					"type": "contact_single_info"
+				},
+				{
+					"type": "contact_single_info"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}
+

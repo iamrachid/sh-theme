@@ -1,0 +1,372 @@
+<!--====================  category area ====================-->
+<div class="category-area mb-40" id="section-{{ section.id }}">
+  <div class="container">
+    <!--=======  section title  =======-->
+    
+    {%if section.settings.section_title != '' %}
+    <div class="section-title mb-20">
+      <h2>{{section.settings.section_title}}</h2>
+    </div>
+    {% endif %}
+    
+
+    <!--=======  End of section title  =======-->
+
+    <div class="row">
+      <div class="col-lg-12">
+        <!--=======  category slider wrapper  =======-->
+
+        <div class="category-slider-wrapper-one">
+          <div class="ht-slick-slider"
+               data-slick-setting='{
+                                   "slidesToShow": 4,
+                                   "slidesToScroll": 1,
+                                   "dots": false,
+                                   "autoplay": false,
+                                   "autoplaySpeed": 5000,
+                                   "speed": 1000
+                                   }'
+               data-slick-responsive='[
+                                      {"breakpoint":1501, "settings": {"slidesToShow": 4} },
+                                      {"breakpoint":1199, "settings": {"slidesToShow": 4} },
+                                      {"breakpoint":991, "settings": {"slidesToShow": 3} },
+                                      {"breakpoint":767, "settings": {"slidesToShow": 2, "arrows": false} },
+                                      {"breakpoint":575, "settings": {"slidesToShow": 2, "arrows": false} },
+                                      {"breakpoint":479, "settings": {"slidesToShow": 1, "arrows": false} }
+                                      ]'
+               >
+
+            <!--=======  single category item  =======-->
+            
+            
+            {% for block in section.blocks %}
+
+            {% case block.type %}
+
+            {% when 'single_ctg' %}
+             {%assign collection_receive_1 = collections[block.settings.collection_handle_1] %}
+            <div class="single-category-item">
+              <div class="single-category-item__image">
+                <a href="{{ collection_receive_1.url }}">
+                  <img src="{% if block.settings.banner_double_img_1 %}
+                      {{ block.settings.banner_double_img_1 | img_url: 'master' }}{% else %}https://via.placeholder.com/262x340{% endif %}" alt="Double Banner Images">
+                </a>
+                <div class="single-category-item__image__content">
+                  <h5 class="category-title"><a href="{{ collection_receive_1.url }}">{{ collection_receive_1.title | handle }}</a></h5>
+                  <p class="quntity">{{ collection_receive_1.products_count }} products</p>
+                </div>
+              </div>
+            </div>
+            {% endcase %}
+            {% endfor %}
+
+            <!--=======  End of single category item  =======-->
+
+          </div>
+
+        </div>
+
+        <!--=======  End of category slider wrapper  =======-->
+      </div>
+    </div>
+  </div>
+</div>
+<!--====================  End of category area  ====================-->
+
+
+
+
+
+
+
+{%- style -%}
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+{%- endstyle -%}
+
+
+
+{% schema %}
+{
+  "name": "Featured Categories",
+  "settings": [ 
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Featured Categories"
+    }
+  ],
+  "blocks":[
+	   		{
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       },
+
+    {
+      "type": "single_ctg",
+      "name": "Single Categories",
+      "settings": [
+
+        {
+          "type": "image_picker",
+          "id": "banner_double_img_1",
+          "label": "Banner Double Image 1",
+          "info": "Recommended Size: 262 x 340px"
+        },
+        {
+          "type": "collection",
+          "id": "collection_handle_1",	
+          "label": "Choose Collection 1"
+        }
+
+      ]
+    }
+
+
+
+  ],
+  "presets":[
+    {
+      "name": "Featured Categories",
+	  "category": "3. collections",
+      "blocks":[
+        {
+          "type": "single_ctg"
+        },        
+		{
+          "type": "single_ctg"
+        },
+        {
+          "type": "single_ctg"
+        },        
+		{
+          "type": "single_ctg"
+        },
+        {
+          "type": "single_ctg"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
