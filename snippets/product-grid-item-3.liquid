@@ -57,6 +57,7 @@
     <div class="single-slider-product__content">
 
       <p class="product-title popup_cart_title"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></p>
+      {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
 
       {%- if settings.product_review_enable -%}
       <div class="product_ratting rating">
