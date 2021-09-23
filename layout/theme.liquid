@@ -52,6 +52,7 @@
 
 	{% render 'vitals-loader' %}
 
+  {% render 'judgeme_core' %}
 </head>
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template.name | handle }}" {% if settings.rtl_enable %} dir="rtl" {%endif%}>
