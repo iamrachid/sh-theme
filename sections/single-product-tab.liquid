@@ -28,6 +28,12 @@
             {{ section.settings.product_comments_title }}
           </a>
           {% endif %}
+          {% if section.settings.product_comments_enable %}
+          <a href="#product_spec" data-toggle="tab" aria-selected="false"
+            class="nav-item nav-link {% if section.settings.tab_active_handle == 'product_spec' %}active{% endif %}">
+            {{ section.settings.product_comments_title }}
+          </a>
+          {% endif %}
 
           {% assign i = 1 %}
           {% for block in section.blocks %}
@@ -63,7 +69,8 @@
         {% if section.settings.product_review_tab_enable %}
         <div class="tab-pane {% if section.settings.tab_active_handle == 'review_tab' %}active{% endif %}"
           id="pro-review" role="tabpanel">
-          {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, product: product %}
+          {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, product: product
+          %}
           <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
         </div>
         {% endif %}
@@ -73,6 +80,13 @@
           {% assign product_video_final = product_video_first | split:'[product_video]' | last %}
           <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ product_video_final }}" frameborder="0"
             allowfullscreen></iframe>
+        </div>
+        {% endif %}
+        {% if product.description contains '[product_spec]' %}
+        <div class="tab-pane" id="product-spec" role="tabpanel">
+          {% assign product_spec_first = product.description | split:'[/product_spec]' | first %}
+          {% assign product_spec_final = product_spec_first | split:'[product_spec]' | last %}
+          {{product_spec_final}}
         </div>
         {% endif %}
 
