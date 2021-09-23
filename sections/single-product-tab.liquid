@@ -12,7 +12,6 @@
           </a>
           {% endif %}
           {% if section.settings.product_review_tab_enable %}
-          {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, product: product %}
           <a href="#pro-review" data-toggle="tab" role="tab"
             class="nav-item nav-link {% if section.settings.tab_active_handle == 'review_tab' %}active{% endif %}">
             {{ section.settings.product_review_tab_title }}
@@ -64,6 +63,7 @@
         {% if section.settings.product_review_tab_enable %}
         <div class="tab-pane {% if section.settings.tab_active_handle == 'review_tab' %}active{% endif %}"
           id="pro-review" role="tabpanel">
+          {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, product: product %}
           <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
         </div>
         {% endif %}
