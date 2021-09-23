@@ -28,8 +28,8 @@
             {{ section.settings.product_comments_title }}
           </a>
           {% endif %}
-          {% if product.description contains '[product_video]' %}
-          <a href="#product_spec" data-toggle="tab" aria-selected="false"
+          {% if product.description contains '[product_spec]' %}
+          <a href="#product-spec" data-toggle="tab" aria-selected="false"
             class="nav-item nav-link {% if section.settings.tab_active_handle == 'product_spec' %}active{% endif %}">
             Specifications
           </a>
