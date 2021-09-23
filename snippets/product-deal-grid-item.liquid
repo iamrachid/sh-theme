@@ -113,6 +113,7 @@
     <div class="double-slider-single-item__content mt-20">
       
 	<p class="product-title mb-15 popup_cart_title"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></p>
+      {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
             
       <div class="product-short-desc mb-25">
         {%- if product.description contains '[short_description]' -%} 
