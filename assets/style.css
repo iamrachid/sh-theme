@@ -5695,13 +5695,13 @@ a.scroll-top:after {
   background-position: left center;
 }
 .discount-label--green {
-  background-image: url("../img/icons/green-discount-label.png");
+  background-image: url("green-discount-label.png");
 }
 .discount-label--red {
-  background-image: url("../img/icons/red-discount-label.png");
+  background-image: url("red-discount-label.png");
 }
 .discount-label--blue {
-  background-image: url("../img/icons/blue-discount-label.png");
+  background-image: url("blue-discount-label.png");
 }
 .discount-label--static {
   position: static;
