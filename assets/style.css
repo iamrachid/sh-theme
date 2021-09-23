@@ -9816,25 +9816,25 @@ h3.comment-counter {
   }
 }
 .grid-icons button.three-column {
-  background-image: url("../img/icons/grid.png");
+  background-image: url("grid.png");
 }
 .grid-icons button.three-column:hover,
 .grid-icons button.three-column.active {
-  background-image: url("../img/icons/grid-hover.png");
+  background-image: url("grid-hover.png");
 }
 .grid-icons button.four-column {
-  background-image: url("../img/icons/grid-4.png");
+  background-image: url("grid-4.png");
 }
 .grid-icons button.four-column:hover,
 .grid-icons button.four-column.active {
-  background-image: url("../img/icons/grid-4-hover.png");
+  background-image: url("grid-4-hover.png");
 }
 .grid-icons button.list-view {
-  background-image: url("../img/icons/list.png");
+  background-image: url("list.png");
 }
 .grid-icons button.list-view:hover,
 .grid-icons button.list-view.active {
-  background-image: url("../img/icons/list-hover.png");
+  background-image: url("list-hover.png");
 }
 
 .shop-product-wrap.grid .list-view-product {
