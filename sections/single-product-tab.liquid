@@ -16,6 +16,7 @@
             class="nav-item nav-link {% if section.settings.tab_active_handle == 'review_tab' %}active{% endif %}">
             {{ section.settings.product_review_tab_title }}
           </a>
+          {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, product: product %}
           {% endif %}
           {% if product.description contains '[product_video]' %}
           <a href="#product-video" data-toggle="tab" aria-selected="false" class="nav-item nav-link">
