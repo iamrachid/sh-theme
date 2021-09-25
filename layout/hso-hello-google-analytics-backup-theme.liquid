@@ -53,10 +53,7 @@
 	{% render 'vitals-loader' %}
 
   {% render 'judgeme_core' %}
-{% if content_for_header contains "hga.helloshopowner.com" %}  
- {% render 'hso-hello-google-analytics' %}  
- {% endif %}  
- </head>
+</head>
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template.name | handle }}" {% if settings.rtl_enable %} dir="rtl" {%endif%}>
   
@@ -105,8 +102,7 @@
   <!-- Your main.js file upload this file -->
   <script src="{{ 'theme.js' | asset_url }}"></script>
 
-{% if content_for_header contains "hga.helloshopowner.com" %}{% render 'hso-hello-google-analytics-event' %}{% endif %} 
- </body>
+</body>
 </html>
 
 
