@@ -1,0 +1,332 @@
+{% if section.settings.subscribe_area_enable %}
+<!--====================  newsletter area ====================-->
+<div class="newsletter-area mb-40" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <!--=======  newsletter wrapper  =======-->
+
+        <div class="newsletter-wrapper newsletter-bg-{{ section.settings.bg_style }}">
+          <div class="newsletter-wrapper__text">
+            
+            {%if section.settings.info_hedings != '' %}
+            <h5>{{ section.settings.info_hedings }}</h5>
+            {% endif %}
+
+            {%if section.settings.info_desc != '' %}
+            <p>{{ section.settings.info_desc }}</p>
+            {% endif %}             
+            
+          </div>
+          
+          <div class="newsletter-wrapper__form">
+            <form action="{{ settings.newsletter_action }}" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+              <div id="mc_embed_signup_scroll">
+                <div id="mc-form" class="mc-form subscribe-form" >
+                  <input type="email" value="" name="EMAIL" class="email email-box" placeholder="{{ settings.email_placeholder }}" required>
+                  <button class="newsletter-btn" id="mc-embedded-subscribe" type="submit">Subscribe !</button>
+                </div>
+              </div>
+            </form>
+          </div>         
+          
+        </div>
+
+        <!--=======  End of newsletter wrapper  =======-->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--====================  End of newsletter area  ====================-->
+{% endif %} 
+
+
+
+{%- style -%}
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+{%- endstyle -%}
+
+
+
+{% schema %}
+  {
+    "name": "Subscribe Area",
+    "settings": [
+
+      {
+        "type": "text",
+        "id": "info_hedings",
+        "label": "Information Heading",
+        "default": "Sign Up For Newsletters"
+      },
+      {
+        "type": "textarea",
+        "id": "info_desc",
+        "label": "Info Description",
+        "default": "Be the First to Know. Sign up for newsletter today"
+      },
+      {
+        "type": "checkbox",
+        "id": "subscribe_area_enable",
+        "label": "Show Subacribe Area",
+        "default": true
+      },
+     	 {
+        "type": "radio",
+        "id": "bg_style",
+        "label": "Background Style",
+        "options": [
+          {
+           "label": "Style 1",
+           "value": "1"
+          },
+          {
+           "label": "Style 2",
+           "value": "2"
+          },
+          {
+            "label": "Style 3",
+             "value": "3"
+          },
+          {
+            "label": "Style 4",
+            "value": "4"
+          }
+          ],
+           "default": "1"
+        }
+
+	],
+	"blocks":[
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 30
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 35
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 30
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 35
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 15
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 20
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+
+
+	],
+	"presets": [
+		{
+		  "name": "Subscribe Area",
+		  "category": "2. about"
+		}
+	]
+  }
+{% endschema %}
+
+

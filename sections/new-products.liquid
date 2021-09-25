@@ -1,0 +1,365 @@
+<!--====================  banner with double row slider ====================-->
+<div class="banner-double-row-slider-area mb-40" id="section-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.section_title != '' %}
+    <div class="row">
+      <div class="col-lg-12">
+        <!--=======  section title  =======-->
+
+        <div class="section-title mb-20">
+          <h2>{{ section.settings.section_title }}</h2>
+        </div>
+
+        <!--=======  End of section title  =======-->
+      </div>
+    </div>
+    {%- endif -%}
+
+    <div class="row row-10">
+
+      {% if section.settings.count_area_enable %}
+      <div class="col-custom-5 mb-sm-30">
+        <!--=======  slider banner area  =======-->
+
+        <div class="slider-banner">
+          <a href="{{ section.settings.banner_url }}">
+            <img src="{% if section.settings.banner_img %}{{ section.settings.banner_img | img_url: 'master' }}{% else %}https://via.placeholder.com/432x694 {% endif %}" class="img-fluid" alt="">
+          </a>
+        </div>
+
+        <!--=======  End of slider banner area  =======-->
+      </div>
+      {%- endif -%}
+
+
+      <div class="{% if section.settings.count_area_enable %}col-custom-7 {% else %}col-lg-12 {% endif %}">
+        <!--=======  product double row slider wrapper  =======-->
+        {% assign product_column_assign = section.settings.product_column %}
+        
+        {% assign featured_product = collections[section.settings.featured_product_handle] %}
+        {% assign featured_product_limit = section.settings.featured_product_limit_handle %}
+
+        <div class="product-double-row-slider-wrapper">
+          <div class="ht-slick-slider"
+               data-slick-setting='{
+                                   "slidesToShow": {{section.settings.product_column}},
+                                   "slidesToScroll": 1,
+                                   "dots": false,
+                                   "autoplay": false,
+                                   "autoplaySpeed": 5000,
+                                   "speed": 1000,
+                                   "arrows": true,
+                                   "rows": 2,
+                                   "prevArrow": {"buttonClass": "slick-prev", "iconClass": "ion-ios-arrow-left" },
+                                   "nextArrow": {"buttonClass": "slick-next", "iconClass": "ion-ios-arrow-right" }
+                                   }'
+               data-slick-responsive='[
+                                      {"breakpoint":1501, "settings": {"slidesToShow": 3} },
+                                      {"breakpoint":1199, "settings": {"slidesToShow": 3} },
+                                      {"breakpoint":991, "settings": {"slidesToShow": 2} },
+                                      {"breakpoint":767, "settings": {"slidesToShow": 2, "arrows": false} },
+                                      {"breakpoint":575, "settings": {"slidesToShow": 2, "arrows": false} },
+                                      {"breakpoint":479, "settings": {"slidesToShow": 1, "arrows": false} }
+                                      ]'
+               >
+
+            <!--=======  single slider product  =======-->
+
+            {% for product in featured_product.products limit: featured_product_limit %}
+            {% include 'product-grid-item' %}
+            {% endfor %}
+
+
+          </div>
+        </div>
+
+        <!--=======  End of product double row slider wrapper  =======-->
+      </div>
+    </div>
+  </div>
+</div>
+<!--====================  End of banner with double row slider  ====================-->
+
+
+
+
+{%- include 'section-style' -%}
+
+
+
+{% schema %}
+  {
+    "name": "New Products Banner",
+    "settings": [
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "New Products"
+      	},
+		{
+			"type": "header",
+            "content": "Product Banner"
+        },
+        {
+          "type": "checkbox",
+          "id": "count_area_enable",
+          "label": "Banner Area Enable",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_img",
+          "label": "Banner Image",
+          "info": "Recommended Size: 432x 694px"
+        },
+
+        {
+          "type": "url",
+          "id": "banner_url",
+          "label": "Banner URL"
+        },
+		{
+			"type": "header",
+            "content": "Product"
+        },
+		{
+			"type": "collection",
+            "id": "featured_product_handle",
+            "label": "Select Collection"
+        },
+		{
+            "type": "range",
+            "id": "featured_product_limit_handle",
+            "min": 2,
+            "max": 50,
+            "step": 1,
+            "label": "Limit",
+            "default": 12
+        },
+		{
+			"type": "header",
+            "content": "Product Column"
+        },
+		{
+          "type": "select",
+          "id": "product_column",
+          "label": "Product Column",
+		  "options":[
+				{
+                    "label": "2",
+                    "value": "2"
+                },
+				{
+                    "label": "3",
+                    "value": "3"
+                },
+                {
+                    "label": "4",
+                    "value": "4"
+                },
+                {
+                    "label": "5",
+                    "value": "5"
+                }
+			],
+			"default": "3"
+      	}
+    ],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "New Products Banner",
+		  "category": "3. collections"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

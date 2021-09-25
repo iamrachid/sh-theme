@@ -1,0 +1,38 @@
+<div class="single-blog-post mb-40">
+  <div class="row">
+    
+    <div class="col-md-6">
+      {% if article.image %}
+      <div class="single-blog-post-media mb-sm-20">
+        <div class="image">
+          <a href="{{ article.url }}">{{ article | img_url: '510x330', crop:'center' | img_tag: article.title }}</a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    
+    <div class="col-md-6">
+      <div class="single-blog-post-content">
+        <h3 class="post-title"> <a href="{{ article.url }}">{{ article.title }}</a></h3>
+        <div class="post-meta">
+          <p>
+            <span><i class="fa fa-user-circle"></i> </span> 
+            {{ article.author }} <span class="separator">|</span> 
+            <span><i class="fa fa-calendar"></i> {{ article.published_at | date: '%d %b, %y' }}</span>
+          </p>
+        </div>
+        
+        <div class="rte">
+          {% if article.excerpt.size > 0 %}
+          {{ article.excerpt }}
+          {% else %}
+          <p class="post-excerpt">{{ article.content | strip_html | truncatewords: 15 }}</p>
+          {% endif %}
+        </div>        
+        
+        <a href="{{ article.url }}" class="blog-readmore-btn">READ MORE</a>
+      </div>
+    </div>
+    
+  </div>
+</div>

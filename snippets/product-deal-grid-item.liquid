@@ -1,0 +1,190 @@
+{%- assign on_sale = false -%}
+{%- if product.compare_at_price > product.price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign variant = product.selected_or_first_available_variant -%}
+
+{%- if product.available -%}
+{%- assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" -%}
+{%- endif -%} 
+
+
+<!--=======  double slider single item  =======-->
+<div class="double-slider-single-item-wrapper">
+  <div class="double-slider-single-item">
+
+    <div class="double-slider-single-item__inner-slider">
+      <div class="big-image-slider-wrapper">
+        <div class="{{ block.id }} ht-slick-slider big-image-double-slider p_control_{{ i }}"
+             data-slick-setting='{
+                                 "slidesToShow": 1,
+                                 "slidesToScroll": 1,
+                                 "dots": false,
+                                 "autoplay": false,
+                                 "autoplaySpeed": 5000,
+                                 "speed": 1000
+                                 }'
+             data-slick-responsive='[
+                                    {"breakpoint":1501, "settings": {"slidesToShow": 1} },
+                                    {"breakpoint":1199, "settings": {"slidesToShow": 1} },
+                                    {"breakpoint":991, "settings": {"slidesToShow": 1} },
+                                    {"breakpoint":767, "settings": {"slidesToShow": 1} },
+                                    {"breakpoint":575, "settings": {"slidesToShow": 1} },
+                                    {"breakpoint":479, "settings": {"slidesToShow": 1} }
+                                    ]'
+             >
+          <!--=======  big image slider single item  =======-->
+          {% for image in product.images %}
+          <div class="big-image-slider-single-item">
+            <img src="{{ image.src | img_url: '600x600', crop:'center' }}" class="img-fluid" alt="">
+          </div>
+          {% endfor %}
+          <!--=======  End of big image slider single item  =======-->
+
+        </div>
+
+        <div class="hover-icons">
+
+          <ul>
+            {%- unless product.description contains '[affiliate_link]' -%}
+            {%- if settings.product_quickview_enalbe -%}
+            <li><a data-toggle = "modal" data-target="#quickViewModal" href="javascript:void(0);" onclick="quiqview('{{ product.handle | handleize }}')"><i class="icon-eye"></i></a></li>
+            {%- endif -%}
+            {%- endunless -%}
+
+            <li>{%- include 'wishlist-button-2' -%}</li>
+
+            {%- if settings.compare_product_enalbe -%}
+            <li><a href="#" class="compare" data-pid="{{ product.handle  }}" title="" data-original-title="Compare"><i class="icon-sliders"></i></a></li>
+            {%- endif -%}
+
+          </ul>          
+          
+        </div>
+      </div>
+
+
+      <div class="small-image-slider-wrapper">
+        <div class="{{ block.id }} ht-slick-slider small-image-double-slider"
+             data-slick-setting='{
+                                 "slidesToShow": 3,
+                                 "slidesToScroll": 1,
+                                 "dots": false,
+                                 "autoplay": false,
+                                 "autoplaySpeed": 5000,
+                                 "speed": 1000,
+                                 "infinite": false,
+                                 "arrows": true,
+                                 "asNavFor": ".p_control_{{ i }}",
+                                 "focusOnSelect": true,
+                                 "prevArrow": {"buttonClass": "slick-prev", "iconClass": "ion-ios-arrow-left" },
+                                 "nextArrow": {"buttonClass": "slick-next", "iconClass": "ion-ios-arrow-right" },
+                                 "infinite": false
+                                 }'
+             data-slick-responsive='[
+                                    {"breakpoint":1501, "settings": {"slidesToShow": 3} },
+                                    {"breakpoint":1199, "settings": {"slidesToShow": 2} },
+                                    {"breakpoint":991, "settings": {"slidesToShow": 3} },
+                                    {"breakpoint":767, "settings": {"slidesToShow": 3} },
+                                    {"breakpoint":575, "settings": {"slidesToShow": 4} },
+                                    {"breakpoint":479, "settings": {"slidesToShow": 3} }
+                                    ]'
+             >
+          <!--=======  small image slider single item  =======-->
+          
+          {% for image in product.images %}
+          <div class="small-image-slider-single-item">
+            <img src="{{ image.src | img_url: 'large' }}" class="img-fluid" alt="">
+          </div>
+          {% endfor %}
+          
+          <!--=======  End of small image slider single item  =======-->
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="double-slider-single-item__content mt-20">
+      
+	<p class="product-title mb-15 popup_cart_title"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></p>
+            
+      <div class="product-short-desc mb-25">
+        {%- if product.description contains '[short_description]' -%} 
+        {%- assign short_description_first = product.description | split:'[/short_description]' | first -%}
+        {%- assign short_description_final = short_description_first | split:'[short_description]' | last -%}
+        {{ short_description_final }}
+        {%- else -%}
+        <p>{{ product.description | strip_html | truncatewords: 25 | split: '[short_description]' | first | split: '[product_description]' | first | split: '[new_products]' | first | split: '[product_video]' | first | split: '[affiliate_link]' | first | split: '[countdown]' | first }}</p>
+        {%- endif -%}
+      </div>
+           
+      {%- include 'product-badge-2' -%}
+      
+      {%- if settings.product_review_enable -%}
+      <div class="product_ratting rating">
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      </div>
+      {%- endif -%}   
+      
+            
+      <p class="product-price product-price--medium">
+        <span class="discounted-price">{{ product.variants.first.price | money }}</span>         
+        {% if product.variants.first.compare_at_price > product.variants.first.price %}
+        <span class="main-price discounted">{{ product.variants.first.compare_at_price | money }}</span>
+        {% endif %}        
+      </p>
+
+      
+      {%- unless product.description contains '[affiliate_link]' -%}
+      <span class="cart-icon cart-icon--double-slider">
+        {% if product.available %}
+        {% if settings.product_cart_type == 'ajax_spin_cart' %}
+        <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart">
+          <span>
+            <span class="cart-title"><i class="icon-shopping-cart"></i></span>
+            <span class="cart-loading animated rotateIn infinite"><i class="ion-gear-b"></i></span>
+            <span class="cart-added"><i class="ion-ios-checkmark-empty"></i></span>
+            <span class="cart-unavailable"><i class="ion-ios-information"></i></span>
+          </span>
+        </a>
+        {% elsif settings.product_cart_type == 'ajax_popup_cart' %}
+        <a href="javascript:void(0);" onclick="{{ func }}; return false;" class="">
+          <span>
+            <span class="cart-title"><i class="icon-shopping-cart"></i></span>
+          </span>
+        </a>
+        {% elsif settings.product_cart_type == 'without_ajax_cart' %}
+        <form action="/cart/add" method="post" enctype="multipart/form-data">
+          <select name="id" style="display:none;">
+            {% for variant in product.variants %}
+            <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ variant.price | money }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="">
+            <span>
+              <span class="cart-title"><i class="icon-shopping-cart"></i></span>
+            </span>
+          </button>
+        </form>
+        {% endif %}
+        {% else %}
+        <button class="cart-disable ">
+          <span class="cart-text"><i class="icon-shopping-cart"></i></span>
+        </button>
+        {% endif %}
+      </span>
+      {%- endunless -%}
+      
+      
+    </div>
+
+  </div>
+</div>
+
+<!--=======  End of double slider single item  =======-->
