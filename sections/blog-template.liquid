@@ -1,198 +1,63 @@
-<div class="page-section pb-40">
-  <div class="container">
-    <div class="row {% if section.settings.sidebar_handle == 'right_sidebar_handle' %}flex-row-reverse{% endif %}">
-      
-      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}
-      <div class="col-lg-3 order-2 order-lg-1">
-        {% include 'blog-sidebar' %}
-      </div>
-      {%- endunless -%}
-      
-      
-      {%- assign blogs_limit = section.settings.blog_limit_handle -%}
-      {%- paginate blog.articles by blogs_limit -%} 
-
-      <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9 order-1 order-lg-2{% endif %}">
-
-        <!--=======  blog post container  =======-->
-
-        <div class="blog-post-container">
-
-          <div class="row">
-
-            {% for article in blog.articles %}
-            <div class="col-md-12">
-              <!--=======  single blog post  =======-->
-              {% include 'blog-grid-item-2' %}
-
-              <!--=======  End of single blog post  =======-->
-            </div>
-            {% endfor %}
-
-          </div>
-        </div>
-
-        <!--=======  End of blog post container  =======-->
-
-        <!--=======  pagination  =======-->
-
-		{% include 'pagination' %}
-
-        <!--=======  End of pagination  =======-->
-      </div>
-      {%- endpaginate -%}
-      
+<div class="sidebar_mobile_wrapper">
+    <div class="sidebar_mobile">
+        <span class='text'>{{ 'general.sidebar.title' | t }}:</span>
+        <svg class="icon"><use xlink:href="#icon-sidebar" /></svg>
     </div>
-  </div>
 </div>
 
+{% paginate blog.articles by section.settings.number %}
 
+    <div class="halo-column column-1">
+        {% for article in blog.articles %}
+            <div class="halo-column__item">
+                {% render 'featured-blog-item-1' with article as article %}
+            </div>
+        {% endfor %}
+    </div> 
 
+    {% if paginate.pages > 1 %}
+        <div class="pagination-wrapper text-right">
+            {% render 'pagination', paginate: paginate %}
+        </div>
+    {% endif %}
 
+{% endpaginate %}
 
 {% schema %}
-  {
-    "name": "Blog Page",
+{
+    "name": "Blog Content",
+    "class": "page-content",
     "settings": [
-		{
-			"type": "header",
-            "content": "Blog"
-        },
-		{
-            "type": "range",
-            "id": "blog_limit_handle",
-            "min": 2,
-            "max": 100,
-            "step": 1,
-            "label": "Post Limit",
-            "default": 9,
-			"info": "How many products are displayed on each page"
-        },
-		{
-			"type": "header",
-			"content": "Blog Sidebar"
-		},
-		{
-			"type": "radio",
-			"id": "sidebar_handle",
-			"label": "Sidebar Position -",
-			"options": [
-				{
-					"label": "Left Sidebar",
-					"value": "left_sidebar_handle"
-				},
-				{
-					"label": "Right Sidebar",
-					"value": "right_sidebar_handle"
-				},
-				{
-					"label": "Without Sidebar",
-					"value": "without_sidebar"
-				}
-			],
-			"default": "left_sidebar_handle"
-		},
         {
-          "type": "checkbox",
-          "id": "showing_product_counter_enable",
-          "label": "Showing Product Counter",
-          "default": true
+            "type": "checkbox",
+            "id": "blog_show_date",
+            "label": "Show date",
+            "default": true
         },
         {
-          "type": "text",
-          "id": "showing_title_handle",
-          "label": "Showing Title",
-          "default": "Showing | of | result"
+            "type": "checkbox",
+            "id": "blog_show_author",
+            "label": "Show author",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_blog_categories",
+            "label": "Show blog categories",
+            "default": true
+        },
+        {
+            "type": "checkbox",
+            "id": "show_blog_comment",
+            "label": "Show number Comment",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "number",
+            "label": "Number of blog to show",
+            "default": "3"
         }
-	 ],
-	 "blocks":[
-		{
-          "type": "search",
-          "name": "Search",
-		  "limit": 1,
-          "settings": [
-            {
-              "type": "text",
-              "id": "wedget_title",
-              "label": "Title",
-              "default": "Search"
-            }
-          ]
-       },
-	   {
-          "type": "recent_post",
-          "name": "Recent Post",
-		  "limit": 1,
-          "settings": [
-            {
-              "type": "text",
-              "id": "recent_post_title",
-              "label": "Recent Post Title",
-              "default": "Recent Post"
-			},
-            {
-              "type": "range",
-              "id": "recent_post_limit_handle",
-              "min": 2,
-              "max": 10,
-              "step": 1,
-              "label": "Post Limit",
-              "default": 3
-            }
-          ]
-       },
-	   {
-          "type": "archive",
-          "name": "Archive",
-		  "limit": 1,
-          "settings": [
-            {
-              "type": "text",
-              "id": "archive_title",
-              "label": "Archive Title",
-              "default": "Archive"
-            }
-          ]
-       },
-	   {
-          "type": "tag",
-          "name": "Tag",
-		  "limit": 1,
-          "settings": [
-            {
-              "type": "text",
-              "id": "blog_tags_title",
-              "label": "Tags Title",
-              "default": "Tags"
-			},
-            {
-              "type": "range",
-              "id": "blog_tags_list_limit_handle",
-              "min": 5,
-              "max": 20,
-              "step": 1,
-              "label": "Tag Limit",
-              "default": 10
-            }
-          ]
-       },
-	   {
-          "type": "menu",
-          "name": "Menu",
-          "settings": [
-            {
-              "type": "text",
-              "id": "menu_title",
-              "label": "Menu Title",
-              "default": "Custom Menu"
-            },
-			{
-              "type": "link_list",
-              "id": "menu_handle",
-              "label": "Menu"
-            }
-          ]
-       }
-	]
-  }
+    ]
+}
 {% endschema %}

@@ -1,23 +1,12 @@
-{% section 'cart-template' %}
+{% comment %}
+  The contents of the cart.liquid template can be found in /sections/cart-template.liquid
+{% endcomment %}
 
-<!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
-<!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+{% render 'breadcrumb', breadcrumb_top: true %}
 
-<script>
-  $('.product-quantity').append('<span class="dec qtybtn"> (-) </span><span class="inc qtybtn"> (+) </span>');
-  $('.qtybtn').on('click', function() {
-    var $button = $(this);
-    var oldValue = $button.parent().find('input').val();
-    if ($button.hasClass('inc')) {
-      var newVal = parseFloat(oldValue) + 1;
-    } else {
-      // Don't allow decrementing below zero
-      if (oldValue > 0) {
-        var newVal = parseFloat(oldValue) - 1;
-      } else {
-        newVal = 0;
-      }
-    }
-    $button.parent().find('input').val(newVal);
-  });
-</script>
+<div class="container">
+    <div class="page page-cart">
+		{% section 'cart-template' %}
+		{% section 'cart-products' %}
+	</div>
+</div>
