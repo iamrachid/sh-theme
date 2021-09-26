@@ -103,6 +103,10 @@
   color: #000000;
 }
 
+.notification-close-btn {
+  margin-top: 0px;
+}
+
 .notification-entry p {
   color: #000000;
 }

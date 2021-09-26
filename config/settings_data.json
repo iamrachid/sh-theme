@@ -15,7 +15,7 @@
     "topbar_notification_enable": true,
     "topbar_notification": "topbar_in_template",
     "notification_text": "🚚 Free Shipping Today only",
-    "notification_button_name": "Shop Now",
+    "notification_button_name": "",
     "notification_button_url": "#",
     "notification_bg_image": "",
     "notification_text_color": "#000000",
