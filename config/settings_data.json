@@ -945,7 +945,7 @@
           "section_title": "Today’s Deals",
           "count_area_enable": true,
           "count_date": "2021\/09\/22",
-          "featured_product_handle": "new",
+          "featured_product_handle": "today-s-deals",
           "featured_product_limit_handle": 4,
           "product_column": "3",
           "product_column_md": "4",
