@@ -16,6 +16,7 @@
         2000
       );
     });
+    
 
     /*=====  End of menu sticky and scroll to top  ======*/
 
