@@ -6,17 +6,6 @@
     =        menu sticky and scroll to top        =
     =============================================*/
 
-    
-
-      //code for scroll top
-
-      if (scroll >= 400) {
-        $(".scroll-top").fadeIn();
-      } else {
-        $(".scroll-top").fadeOut();
-      }
-    });
-
     /*----------  Scroll to top  ----------*/
 
     $(".scroll-top").on("click", function () {
