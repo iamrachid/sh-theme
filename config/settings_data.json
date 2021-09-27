@@ -804,7 +804,6 @@
       },
       "1548927351222": {
         "type": "service-feature-area",
-        "disabled": true,
         "blocks": {
           "1548927351222-0": {
             "type": "single_feature",
@@ -1418,7 +1417,6 @@
       },
       "1559548434891": {
         "type": "slider-2",
-        "disabled": true,
         "blocks": {
           "1559548434891-2": {
             "type": "slide",
