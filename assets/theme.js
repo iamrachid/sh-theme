@@ -6,14 +6,16 @@
     =        menu sticky and scroll to top        =
     =============================================*/
 
-    /*----------  Menu sticky ----------*/
+    
 
-    var windows = $(window);
-    var screenSize = windows.width();
-    var sticky = $(".header-sticky");
-    var stickyAbsolute = $(".header-sticky--absolute");
-    var $html = $("html");
-    var $body = $("body");
+      //code for scroll top
+
+      if (scroll >= 400) {
+        $(".scroll-top").fadeIn();
+      } else {
+        $(".scroll-top").fadeOut();
+      }
+    });
 
     /*----------  Scroll to top  ----------*/
 
