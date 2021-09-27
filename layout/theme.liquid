@@ -64,7 +64,7 @@
  </head>
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template.name | handle }}" {% if settings.rtl_enable %} dir="rtl" {%endif%}>
-  <a class="top-scroll">Top</a>
+  <a class="scroll-top">Top</a>
 
   {%- if settings.enable_preloader -%}
   {% include 'preloader' %} 
