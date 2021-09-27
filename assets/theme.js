@@ -15,34 +15,6 @@
     var $html = $("html");
     var $body = $("body");
 
-    windows.on("scroll", function () {
-      var scroll = windows.scrollTop();
-      var headerHeight = sticky.height();
-      var headerHeightAbsolute = stickyAbsolute.height();
-
-      if (screenSize >= 320) {
-        if (scroll < headerHeight) {
-          sticky.removeClass("is-sticky");
-        } else {
-          sticky.addClass("is-sticky");
-        }
-
-        if (scroll < headerHeightAbsolute) {
-          stickyAbsolute.removeClass("is-sticky--absolute");
-        } else {
-          stickyAbsolute.addClass("is-sticky--absolute");
-        }
-      }
-
-      //code for scroll top
-
-      if (scroll >= 400) {
-        $(".scroll-top").fadeIn();
-      } else {
-        $(".scroll-top").fadeOut();
-      }
-    });
-
     /*----------  Scroll to top  ----------*/
 
     $(".scroll-top").on("click", function () {
