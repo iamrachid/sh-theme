@@ -2,6 +2,10 @@
   "use strict";
 
   jQuery(document).ready(function () {
+    var windows = $(window);
+    var $html = $("html");
+    var $body = $("body");
+
     /*=============================================
     =        menu sticky and scroll to top        =
     =============================================*/
