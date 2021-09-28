@@ -812,7 +812,7 @@
               "icon_img_enable": true,
               "icon_img": "shopify:\/\/shop_images\/001-delivery-truck.png",
               "service_des": "Free Shipping",
-              "service_sub_des": "Free shipping on order"
+              "service_sub_des": "Free shipping in usa"
             }
           },
           "1548927351222-1": {
@@ -832,7 +832,7 @@
               "icon_img_enable": true,
               "icon_img": "shopify:\/\/shop_images\/006-payment-1.png",
               "service_des": "Payment Secure",
-              "service_sub_des": "Free shipping on order"
+              "service_sub_des": "!00% Money back guarantee"
             }
           }
         },
