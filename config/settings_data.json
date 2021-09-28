@@ -578,7 +578,7 @@
           "product_variant_handle": "product_variant_swatch_option",
           "show_variant_image": true,
           "about_product_feature_area": true,
-          "dynamic_checkout_button_enable": false,
+          "dynamic_checkout_button_enable": true,
           "social_share_enable": true,
           "social_share_title": "Share This Product:",
           "payment_option_enable": true,
