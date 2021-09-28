@@ -292,8 +292,9 @@
           "footer_top_enable": true,
           "footer_bottom_enable": true,
           "copyright_area_bg_color": "#242424",
-          "copy_right_text": "<p>Copyright © <a href=\"\/collections\/frontpage\" target=\"_blank\" title=\"Home page\">WINERYTOOLS<\/a>. All Right Reserved.<\/p>",
-          "payment_support_enable": false,
+          "copy_right_text": "<p>Copyright © <a href=\"https:\/\/winerytools.com\" title=\"https:\/\/winerytools.com\">WINERYTOOLS<\/a>. All Right Reserved.<\/p>",
+          "payment_support_enable": true,
+          "payment_image": "shopify:\/\/shop_images\/payment_options_1.png",
           "payment_image_url": ""
         }
       },
