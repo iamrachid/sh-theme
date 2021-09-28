@@ -1421,11 +1421,12 @@
           "1559548434891-2": {
             "type": "slide",
             "settings": {
+              "slider_img": "shopify:\/\/shop_images\/GetPaidStock.com_-614b15d4b1427_1.png",
               "slider_title": "The Stone Series",
               "slider_sub_title": "A Great Addition",
               "slider_des": "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
               "slider_button": "Shopping Now",
-              "slider_button_url": ""
+              "slider_button_url": "shopify:\/\/collections"
             }
           }
         },
