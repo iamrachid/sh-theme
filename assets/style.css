@@ -3239,7 +3239,7 @@ a.scroll-top:after {
   font-weight: 600;
   line-height: 60px;
   margin-bottom: 20px;
-  color: #333;
+  color: #fff;
 }
 @media only screen and (min-width: 1200px) and (max-width: 1499px) {
   .hero-slider-content p.slider-title--big-bold {
